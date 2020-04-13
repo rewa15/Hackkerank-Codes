@@ -1,23 +1,44 @@
- static boolean isSubsetSum (int arr[], int n, int sum) 
-    { 
-      
-        if (sum == 0) 
-            return true; 
-            
-        if (n == 0 && sum != 0) 
-            return false; 
-  
-        // If last element is greater than sum, then ignore it 
+import java.util.*;
+import java.io.*;
+
+public class Main
+{
+    public static boolean canPartition(int[] arr)
+    {
+       // Firstly check for even/odd sum, odd sum cannot be partitioned
+       
+       int total=0;
+       for(int i=0; i<arr.length; i++)
+       {
+           total+=arr[i];
+       }
+       
+       if(total%2!=0)
+        return false;
         
-        if (arr[n-1] > sum) 
-            return isSubsetSum (arr, n-1, sum); 
-  
-        /* else, check if sum can be obtained by any of 
-           the following 
-        (a) including the last element 
-        (b) excluding the last element 
-        */
+       return canPart(arr,0,0,total);
+    }
+    
+    public static boolean canPart(int[] arr, int index, int sum, int total)
+    {
+        if(sum*2 ==total)
+         return true;
         
-        return isSubsetSum (arr, n-1, sum) || 
-               isSubsetSum (arr, n-1, sum-arr[n-1]); 
-    } 
+        if(sum > total/2 || index > arr.length)
+         return false;
+         
+        return canPart(arr, index+1, sum, total) || canPart(arr, index+1, sum+arr[index], total);
+         
+    }
+	public static void main(String[] args) 
+	{
+		Scanner sc = new Scanner(System.in);
+		int n = sc.nextInt();
+		int[] arr=new int[n];
+		for(int i=0; i<n; i++)
+		{
+		    arr[i]=sc.nextInt();
+		}
+		System.out.print(canPartition(arr));
+	}
+}
