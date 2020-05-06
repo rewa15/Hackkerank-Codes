@@ -1,6 +1,8 @@
 // Longest repeating subsequence
 // Ques link: https://www.geeksforgeeks.org/longest-repeated-subsequence/
 
+// Test Cases: AABEBCDD O/p: 3
+
 import java.util.*;
 import java.io.*;
 
